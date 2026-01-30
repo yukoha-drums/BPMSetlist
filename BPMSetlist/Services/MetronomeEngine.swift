@@ -273,28 +273,36 @@ class MetronomeEngine: ObservableObject {
         
         playerNode.play()
         
-        // Generate a full bar buffer and loop it
-        scheduleLoopingBuffer(sessionID: currentSessionID)
+        // Schedule multiple buffers ahead for seamless playback
+        scheduleMultipleBuffers(count: 3, sessionID: currentSessionID)
     }
     
-    private func scheduleLoopingBuffer(sessionID: UUID) {
+    private func scheduleMultipleBuffers(count: Int, sessionID: UUID) {
         guard self.sessionID == sessionID, isPlaying else { return }
         
-        guard let playerNode = playerNode,
-              let buffer = generateFullBeatBuffer(bpm: currentBPM, beatsPerBar: beatsPerBar, sound: currentSound) else {
-            return
-        }
+        guard let playerNode = playerNode else { return }
         
-        // Schedule the buffer with a completion handler to loop
-        playerNode.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
-            Task { @MainActor [weak self] in
-                guard let self = self else { return }
-                self.currentBeat = 0
-                self.scheduleLoopingBuffer(sessionID: sessionID)
+        for i in 0..<count {
+            guard let buffer = generateFullBeatBuffer(bpm: currentBPM, beatsPerBar: beatsPerBar, sound: currentSound) else {
+                continue
+            }
+            
+            if i == count - 1 {
+                // Last buffer: schedule more when it starts playing
+                playerNode.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
+                    Task { @MainActor [weak self] in
+                        guard let self = self, self.sessionID == sessionID, self.isPlaying else { return }
+                        // Schedule more buffers to keep the queue filled
+                        self.scheduleMultipleBuffers(count: 2, sessionID: sessionID)
+                    }
+                }
+            } else {
+                // Other buffers: just schedule without callback
+                playerNode.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
             }
         }
         
-        // Start beat counter
+        // Start beat counter if not already running
         startBeatCounter(sessionID: sessionID)
     }
     
@@ -302,16 +310,19 @@ class MetronomeEngine: ObservableObject {
         guard self.sessionID == sessionID, isPlaying else { return }
         
         let beatInterval = 60.0 / Double(currentBPM)
+        let barDuration = beatInterval * Double(beatsPerBar)
         
         Task { @MainActor [weak self] in
             guard let self = self else { return }
             
-            for beat in 0..<self.beatsPerBar {
-                guard self.sessionID == sessionID, self.isPlaying else { return }
-                
-                self.currentBeat = beat
-                
-                try? await Task.sleep(nanoseconds: UInt64(beatInterval * 1_000_000_000))
+            while self.sessionID == sessionID && self.isPlaying {
+                for beat in 0..<self.beatsPerBar {
+                    guard self.sessionID == sessionID, self.isPlaying else { return }
+                    
+                    self.currentBeat = beat
+                    
+                    try? await Task.sleep(nanoseconds: UInt64(beatInterval * 1_000_000_000))
+                }
             }
         }
     }
