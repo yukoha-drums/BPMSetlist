@@ -430,7 +430,8 @@ class SetlistPlayer: ObservableObject {
         
         // Use Timer which works in background with audio session active
         durationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in
+            guard let self = self else { return }
+            Task { @MainActor [weak self] in
                 guard let self = self, self.isPlayingSetlist else { return }
                 
                 self.elapsedTime += 1
