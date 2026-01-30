@@ -101,6 +101,11 @@ enum L10nKey: String {
     case hihat = "hihat"
     case rimshot = "rimshot"
     case cowbell = "cowbell"
+    
+    // Support
+    case support = "support"
+    case rateApp = "rate_app"
+    case sendFeedback = "send_feedback"
 }
 
 // MARK: - Localization Manager
@@ -168,6 +173,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "Hi-Hat",
             .rimshot: "Rimshot",
             .cowbell: "Cowbell",
+            .support: "SUPPORT",
+            .rateApp: "Rate This App",
+            .sendFeedback: "Send Feedback",
         ],
         
         // Japanese
@@ -214,6 +222,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "ハイハット",
             .rimshot: "リムショット",
             .cowbell: "カウベル",
+            .support: "サポート",
+            .rateApp: "アプリを評価する",
+            .sendFeedback: "フィードバックを送る",
         ],
         
         // French
@@ -260,6 +271,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "Charleston",
             .rimshot: "Rimshot",
             .cowbell: "Cloche",
+            .support: "ASSISTANCE",
+            .rateApp: "Évaluer l'application",
+            .sendFeedback: "Envoyer un commentaire",
         ],
         
         // Italian
@@ -306,6 +320,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "Hi-Hat",
             .rimshot: "Rimshot",
             .cowbell: "Campanaccio",
+            .support: "SUPPORTO",
+            .rateApp: "Valuta l'app",
+            .sendFeedback: "Invia feedback",
         ],
         
         // Spanish
@@ -352,6 +369,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "Hi-Hat",
             .rimshot: "Rimshot",
             .cowbell: "Cencerro",
+            .support: "SOPORTE",
+            .rateApp: "Valorar la app",
+            .sendFeedback: "Enviar comentarios",
         ],
         
         // German
@@ -398,6 +418,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "Hi-Hat",
             .rimshot: "Rimshot",
             .cowbell: "Kuhglocke",
+            .support: "SUPPORT",
+            .rateApp: "App bewerten",
+            .sendFeedback: "Feedback senden",
         ],
         
         // Chinese
@@ -444,6 +467,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "踩镲",
             .rimshot: "边击",
             .cowbell: "牛铃",
+            .support: "支持",
+            .rateApp: "给应用评分",
+            .sendFeedback: "发送反馈",
         ],
         
         // Korean
@@ -490,6 +516,9 @@ class LocalizationManager: ObservableObject {
             .hihat: "하이햇",
             .rimshot: "림샷",
             .cowbell: "카우벨",
+            .support: "지원",
+            .rateApp: "앱 평가하기",
+            .sendFeedback: "피드백 보내기",
         ],
     ]
 }

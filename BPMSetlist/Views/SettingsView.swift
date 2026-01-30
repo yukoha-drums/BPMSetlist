@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
@@ -179,6 +180,75 @@ struct SettingsView: View {
                             )
                         }
                         
+                        // Feedback & Support
+                        VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
+                            Text(localization.localized(.support))
+                                .font(AppTheme.Typography.caption)
+                                .foregroundColor(AppTheme.Colors.textMuted)
+                            
+                            VStack(spacing: AppTheme.Spacing.sm) {
+                                // Rate App
+                                Button {
+                                    requestReview()
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "star.fill")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(AppTheme.Colors.accentGold)
+                                            .frame(width: 30)
+                                        
+                                        Text(localization.localized(.rateApp))
+                                            .font(AppTheme.Typography.headline)
+                                            .foregroundColor(AppTheme.Colors.textPrimary)
+                                        
+                                        Spacer()
+                                        
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(AppTheme.Colors.textMuted)
+                                    }
+                                    .padding(AppTheme.Spacing.md)
+                                    .background(AppTheme.Colors.cardBackground)
+                                    .cornerRadius(AppTheme.CornerRadius.medium)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                                            .stroke(AppTheme.Colors.border, lineWidth: 1)
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                                
+                                // Send Feedback
+                                Button {
+                                    sendFeedback()
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "envelope.fill")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(AppTheme.Colors.textSecondary)
+                                            .frame(width: 30)
+                                        
+                                        Text(localization.localized(.sendFeedback))
+                                            .font(AppTheme.Typography.headline)
+                                            .foregroundColor(AppTheme.Colors.textPrimary)
+                                        
+                                        Spacer()
+                                        
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(AppTheme.Colors.textMuted)
+                                    }
+                                    .padding(AppTheme.Spacing.md)
+                                    .background(AppTheme.Colors.cardBackground)
+                                    .cornerRadius(AppTheme.CornerRadius.medium)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                                            .stroke(AppTheme.Colors.border, lineWidth: 1)
+                                    )
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        
                         Spacer(minLength: AppTheme.Spacing.xxl)
                     }
                     .padding(AppTheme.Spacing.lg)
@@ -220,6 +290,31 @@ struct SettingsView: View {
         case .hihat: return localization.localized(.hihat)
         case .rimshot: return localization.localized(.rimshot)
         case .cowbell: return localization.localized(.cowbell)
+        }
+    }
+    
+    private func requestReview() {
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+    }
+    
+    private func sendFeedback() {
+        let email = "bpmsetlist.app@gmail.com" // TODO: Replace with your email
+        let subject = "BPM Setlist Feedback"
+        let body = """
+        
+        ---
+        App Version: 1.0.0
+        iOS Version: \(UIDevice.current.systemVersion)
+        Device: \(UIDevice.current.model)
+        """
+        
+        let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let encodedBody = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        if let url = URL(string: "mailto:\(email)?subject=\(encodedSubject)&body=\(encodedBody)") {
+            UIApplication.shared.open(url)
         }
     }
 }
