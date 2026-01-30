@@ -59,7 +59,8 @@ class MetronomeEngine: ObservableObject {
             return
         }
         
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
             switch type {
             case .began:
                 // Interruption began (e.g., phone call)
