@@ -23,24 +23,66 @@ class MetronomeEngine: ObservableObject {
     private var playerNode: AVAudioPlayerNode?
     private var clickBuffer: AVAudioPCMBuffer?
     private var accentBuffer: AVAudioPCMBuffer?
-    private var nextBeatTime: TimeInterval = 0
-    private var metronomeTask: Task<Void, Never>?
     private var sessionID: UUID = UUID()
+    private var scheduledBeatsCount: Int = 0
+    private let beatsToScheduleAhead: Int = 4 // Schedule 4 beats ahead
+    private var lastScheduledSampleTime: AVAudioFramePosition = 0
+    private var isScheduling: Bool = false
+    
+    private let sampleRate: Double = 44100
     
     // MARK: - Audio Session
     private func setupAudioSession() {
         do {
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
-            try session.setActive(true)
+            // Remove .mixWithOthers for reliable background playback
+            try session.setCategory(.playback, mode: .default, options: [])
+            try session.setActive(true, options: .notifyOthersOnDeactivation)
+            
+            // Handle interruptions
+            NotificationCenter.default.removeObserver(self, name: AVAudioSession.interruptionNotification, object: nil)
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleInterruption),
+                name: AVAudioSession.interruptionNotification,
+                object: session
+            )
         } catch {
             print("Failed to setup audio session: \(error)")
         }
     }
     
+    @objc private func handleInterruption(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+        }
+        
+        Task { @MainActor in
+            switch type {
+            case .began:
+                // Interruption began (e.g., phone call)
+                break
+            case .ended:
+                // Interruption ended, try to resume
+                if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+                    let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+                    if options.contains(.shouldResume) && self.isPlaying {
+                        // Resume playback
+                        try? AVAudioSession.sharedInstance().setActive(true)
+                        self.playerNode?.play()
+                        self.scheduleBeats()
+                    }
+                }
+            @unknown default:
+                break
+            }
+        }
+    }
+    
     // MARK: - Sound Generation
     private func generateClickBuffer(frequency: Double, duration: Double, isAccent: Bool) -> AVAudioPCMBuffer? {
-        let sampleRate: Double = 44100
         let frameCount = AVAudioFrameCount(sampleRate * duration)
         
         guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
@@ -122,7 +164,7 @@ class MetronomeEngine: ObservableObject {
         
         audioEngine.attach(playerNode)
         
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)!
+        let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1)!
         audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: format)
         
         do {
@@ -137,9 +179,8 @@ class MetronomeEngine: ObservableObject {
         // Stop any existing playback first
         stopInternal()
         
-        // Create new session ID to invalidate old loops
+        // Create new session ID to invalidate old scheduling
         sessionID = UUID()
-        let currentSessionID = sessionID
         
         setupAudioSession()
         setupAudioEngine()
@@ -148,64 +189,89 @@ class MetronomeEngine: ObservableObject {
         currentBPM = bpm
         self.beatsPerBar = beatsPerBar
         currentBeat = 0
+        scheduledBeatsCount = 0
         isPlaying = true
+        isScheduling = false
         
-        playerNode?.play()
-        
-        let interval = 60.0 / Double(bpm)
-        nextBeatTime = CACurrentMediaTime()
-        
-        startMetronomeLoop(interval: interval, sessionID: currentSessionID)
-    }
-    
-    private func startMetronomeLoop(interval: TimeInterval, sessionID: UUID) {
-        metronomeTask?.cancel()
-        metronomeTask = Task { @MainActor [weak self] in
-            while let self = self, self.isPlaying, self.sessionID == sessionID {
-                self.checkAndPlayBeat(interval: interval)
-                try? await Task.sleep(nanoseconds: 1_000_000) // 1ms
-            }
-        }
-    }
-    
-    private func checkAndPlayBeat(interval: TimeInterval) {
-        let currentTime = CACurrentMediaTime()
-        
-        if currentTime >= nextBeatTime {
-            playBeat()
-            nextBeatTime += interval
-            
-            // Prevent drift accumulation
-            if nextBeatTime < currentTime {
-                nextBeatTime = currentTime + interval
-            }
-        }
-    }
-    
-    private func playBeat() {
         guard let playerNode = playerNode else { return }
         
-        let isFirstBeat = currentBeat % beatsPerBar == 0
-        let buffer = isFirstBeat ? accentBuffer : clickBuffer
+        playerNode.play()
         
-        if let buffer = buffer {
-            playerNode.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
+        // Get the current sample time
+        if let lastRenderTime = playerNode.lastRenderTime,
+           let playerTime = playerNode.playerTime(forNodeTime: lastRenderTime) {
+            lastScheduledSampleTime = playerTime.sampleTime
+        } else {
+            lastScheduledSampleTime = 0
         }
         
-        currentBeat += 1
+        // Schedule initial beats
+        scheduleBeats()
+    }
+    
+    private func scheduleBeats() {
+        guard isPlaying, !isScheduling else { return }
+        isScheduling = true
+        
+        let currentSessionID = sessionID
+        
+        guard let playerNode = playerNode,
+              let clickBuffer = clickBuffer,
+              let accentBuffer = accentBuffer else {
+            isScheduling = false
+            return
+        }
+        
+        let samplesPerBeat = AVAudioFramePosition(sampleRate * 60.0 / Double(currentBPM))
+        
+        // Schedule multiple beats ahead
+        for i in 0..<beatsToScheduleAhead {
+            guard sessionID == currentSessionID, isPlaying else { break }
+            
+            let beatNumber = scheduledBeatsCount + i
+            let isFirstBeat = beatNumber % beatsPerBar == 0
+            let buffer = isFirstBeat ? accentBuffer : clickBuffer
+            
+            let sampleTime = lastScheduledSampleTime + AVAudioFramePosition(i) * samplesPerBeat
+            let time = AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
+            
+            // Schedule buffer with completion handler for the last beat
+            if i == beatsToScheduleAhead - 1 {
+                playerNode.scheduleBuffer(buffer, at: time, options: []) { [weak self] in
+                    Task { @MainActor in
+                        guard let self = self, self.sessionID == currentSessionID, self.isPlaying else { return }
+                        self.scheduledBeatsCount += self.beatsToScheduleAhead
+                        self.lastScheduledSampleTime += AVAudioFramePosition(self.beatsToScheduleAhead) * samplesPerBeat
+                        self.isScheduling = false
+                        self.scheduleBeats()
+                    }
+                }
+            } else {
+                playerNode.scheduleBuffer(buffer, at: time, options: []) { [weak self] in
+                    Task { @MainActor in
+                        guard let self = self, self.sessionID == currentSessionID else { return }
+                        self.currentBeat = (self.currentBeat + 1) % self.beatsPerBar
+                    }
+                }
+            }
+        }
+        
+        // Update current beat display
+        currentBeat = scheduledBeatsCount % beatsPerBar
     }
     
     private func stopInternal() {
-        metronomeTask?.cancel()
-        metronomeTask = nil
         isPlaying = false
+        isScheduling = false
         playerNode?.stop()
         audioEngine?.stop()
         currentBeat = 0
+        scheduledBeatsCount = 0
+        lastScheduledSampleTime = 0
     }
     
     func stop() {
-        sessionID = UUID() // Invalidate any running loops
+        sessionID = UUID() // Invalidate any scheduled callbacks
         stopInternal()
     }
     
@@ -225,7 +291,7 @@ class MetronomeEngine: ObservableObject {
     }
     
     deinit {
-        metronomeTask?.cancel()
+        NotificationCenter.default.removeObserver(self)
         audioEngine?.stop()
     }
 }
@@ -239,7 +305,7 @@ class SetlistPlayer: ObservableObject {
     @Published var elapsedTime: Int = 0
     
     private var songs: [Song] = []
-    private var durationTask: Task<Void, Never>?
+    private var durationTimer: Timer?
     let metronome = MetronomeEngine()
     
     var currentSong: Song? {
@@ -355,15 +421,16 @@ class SetlistPlayer: ObservableObject {
         AppSettings.shared.isRepeatEnabled = isRepeatEnabled
     }
     
-    // MARK: - Duration Timer
+    // MARK: - Duration Timer (Using Timer for background compatibility)
     private func startDurationTimer() {
         guard let song = currentSong, song.duration > 0 else { return }
         
-        durationTask = Task { [weak self] in
-            while self?.isPlayingSetlist == true {
-                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
-                
-                guard let self = self, self.isPlayingSetlist else { break }
+        stopDurationTimer()
+        
+        // Use Timer which works in background with audio session active
+        durationTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                guard let self = self, self.isPlayingSetlist else { return }
                 
                 self.elapsedTime += 1
                 
@@ -372,14 +439,18 @@ class SetlistPlayer: ObservableObject {
                    currentSong.duration > 0,
                    self.elapsedTime >= currentSong.duration {
                     self.next()
-                    break
                 }
             }
+        }
+        
+        // Add timer to common run loop mode for background execution
+        if let timer = durationTimer {
+            RunLoop.main.add(timer, forMode: .common)
         }
     }
     
     private func stopDurationTimer() {
-        durationTask?.cancel()
-        durationTask = nil
+        durationTimer?.invalidate()
+        durationTimer = nil
     }
 }
