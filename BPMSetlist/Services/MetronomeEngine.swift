@@ -20,11 +20,27 @@ class MetronomeEngine: ObservableObject {
     
     // MARK: - Private Properties
     private var audioEngine: AVAudioEngine?
-    private var playerNode: AVAudioPlayerNode?
-    private var sessionID: UUID = UUID()
+    private var sourceNode: AVAudioSourceNode?
     
     private let sampleRate: Double = 44100
     private var currentSound: MetronomeSound = .click
+    
+    // Audio generation state (accessed from audio thread)
+    private var sampleTime: Int64 = 0
+    private var samplesPerBeat: Int64 = 0
+    private var clickSamples: [Float] = []
+    private var accentSamples: [Float] = []
+    private var beatCounter: Int = 0
+    private var beatsPerBarAtomic: Int = 4
+    
+    // Thread-safe communication
+    private let lock = NSLock()
+    private var _isGenerating: Bool = false
+    
+    private var isGenerating: Bool {
+        get { lock.lock(); defer { lock.unlock() }; return _isGenerating }
+        set { lock.lock(); defer { lock.unlock() }; _isGenerating = newValue }
+    }
     
     // MARK: - Initialization
     init() {
@@ -50,13 +66,6 @@ class MetronomeEngine: ObservableObject {
             name: AVAudioSession.interruptionNotification,
             object: AVAudioSession.sharedInstance()
         )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleRouteChange),
-            name: AVAudioSession.routeChangeNotification,
-            object: AVAudioSession.sharedInstance()
-        )
     }
     
     @objc private func handleInterruption(notification: Notification) {
@@ -71,13 +80,13 @@ class MetronomeEngine: ObservableObject {
             
             switch type {
             case .began:
-                break
+                self.isGenerating = false
             case .ended:
                 if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
                     let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
                     if options.contains(.shouldResume) && self.isPlaying {
                         try? AVAudioSession.sharedInstance().setActive(true)
-                        self.restartPlayback()
+                        self.restartEngine()
                     }
                 }
             @unknown default:
@@ -86,109 +95,45 @@ class MetronomeEngine: ObservableObject {
         }
     }
     
-    @objc private func handleRouteChange(notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-              let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
-            return
-        }
-        
-        Task { @MainActor [weak self] in
-            guard let self = self else { return }
-            
-            if reason == .oldDeviceUnavailable && self.isPlaying {
-                self.restartPlayback()
-            }
-        }
-    }
-    
-    private func restartPlayback() {
+    private func restartEngine() {
+        guard isPlaying else { return }
         let bpm = currentBPM
         let beats = beatsPerBar
         let sound = currentSound
-        stop()
+        stopInternal()
         start(bpm: bpm, sound: sound, beatsPerBar: beats)
     }
     
     // MARK: - Sound Generation
-    private func generateBeatBuffer(frequency: Double, isAccent: Bool) -> AVAudioPCMBuffer? {
-        let clickDuration: Double = 0.03
-        let frameCount = AVAudioFrameCount(sampleRate * clickDuration)
+    private func generateClickSamples(frequency: Double, isAccent: Bool) -> [Float] {
+        let clickDuration: Double = 0.025
+        let frameCount = Int(sampleRate * clickDuration)
+        var samples = [Float](repeating: 0, count: frameCount)
         
-        guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
-              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
-            return nil
-        }
+        let amplitude: Float = isAccent ? 0.85 : 0.55
         
-        buffer.frameLength = frameCount
-        
-        guard let channelData = buffer.floatChannelData?[0] else {
-            return nil
-        }
-        
-        let amplitude: Float = isAccent ? 0.9 : 0.6
-        
-        for frame in 0..<Int(frameCount) {
+        for frame in 0..<frameCount {
             let time = Double(frame) / sampleRate
-            let envelope = Float(exp(-time * 150)) // Fast decay
+            let envelope = Float(exp(-time * 200))
             
             var sample: Float = 0
             sample += sin(Float(2.0 * .pi * frequency * time)) * 1.0
-            sample += sin(Float(2.0 * .pi * frequency * 2 * time)) * 0.5
-            sample += sin(Float(2.0 * .pi * frequency * 3 * time)) * 0.25
+            sample += sin(Float(2.0 * .pi * frequency * 2.0 * time)) * 0.5
+            sample += sin(Float(2.0 * .pi * frequency * 3.0 * time)) * 0.25
             
-            if time < 0.003 {
-                sample += Float.random(in: -0.4...0.4)
+            if time < 0.002 {
+                sample += Float.random(in: -0.3...0.3)
             }
             
-            channelData[frame] = sample * amplitude * envelope
+            samples[frame] = sample * amplitude * envelope
         }
         
-        return buffer
+        return samples
     }
     
-    private func generateSilenceBuffer(duration: Double) -> AVAudioPCMBuffer? {
-        let frameCount = AVAudioFrameCount(sampleRate * duration)
-        
-        guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
-              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
-            return nil
-        }
-        
-        buffer.frameLength = frameCount
-        
-        // Fill with near-silence (very quiet noise to keep audio session alive)
-        if let channelData = buffer.floatChannelData?[0] {
-            for frame in 0..<Int(frameCount) {
-                channelData[frame] = Float.random(in: -0.0001...0.0001)
-            }
-        }
-        
-        return buffer
-    }
-    
-    private func generateFullBeatBuffer(bpm: Int, beatsPerBar: Int, sound: MetronomeSound) -> AVAudioPCMBuffer? {
-        let beatInterval = 60.0 / Double(bpm)
-        let totalDuration = beatInterval * Double(beatsPerBar)
-        let totalFrames = AVAudioFrameCount(sampleRate * totalDuration)
-        
-        guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1),
-              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: totalFrames) else {
-            return nil
-        }
-        
-        buffer.frameLength = totalFrames
-        
-        guard let channelData = buffer.floatChannelData?[0] else {
-            return nil
-        }
-        
-        // Fill with near-silence first
-        for frame in 0..<Int(totalFrames) {
-            channelData[frame] = Float.random(in: -0.0001...0.0001)
-        }
-        
+    private func prepareSoundSamples(for sound: MetronomeSound) {
         let baseFrequency: Double
+        
         switch sound {
         case .click: baseFrequency = 1000
         case .woodblock: baseFrequency = 800
@@ -197,54 +142,87 @@ class MetronomeEngine: ObservableObject {
         case .cowbell: baseFrequency = 600
         }
         
-        // Add clicks at beat positions
-        for beat in 0..<beatsPerBar {
-            let isAccent = beat == 0
-            let frequency = isAccent ? baseFrequency * 1.5 : baseFrequency
-            let amplitude: Float = isAccent ? 0.9 : 0.6
-            
-            let beatStartFrame = Int(Double(beat) * beatInterval * sampleRate)
-            let clickDuration = 0.03
-            let clickFrames = Int(sampleRate * clickDuration)
-            
-            for frame in 0..<clickFrames {
-                let targetFrame = beatStartFrame + frame
-                guard targetFrame < Int(totalFrames) else { break }
-                
-                let time = Double(frame) / sampleRate
-                let envelope = Float(exp(-time * 150))
-                
-                var sample: Float = 0
-                sample += sin(Float(2.0 * .pi * frequency * time)) * 1.0
-                sample += sin(Float(2.0 * .pi * frequency * 2 * time)) * 0.5
-                sample += sin(Float(2.0 * .pi * frequency * 3 * time)) * 0.25
-                
-                if time < 0.003 {
-                    sample += Float.random(in: -0.4...0.4)
-                }
-                
-                channelData[targetFrame] = sample * amplitude * envelope
-            }
-        }
-        
-        return buffer
+        clickSamples = generateClickSamples(frequency: baseFrequency, isAccent: false)
+        accentSamples = generateClickSamples(frequency: baseFrequency * 1.5, isAccent: true)
     }
     
     // MARK: - Engine Setup
-    private func setupAudioEngine() {
-        playerNode?.stop()
+    private func setupEngine(bpm: Int, beatsPerBar: Int) {
         audioEngine?.stop()
+        audioEngine = nil
+        sourceNode = nil
         
         audioEngine = AVAudioEngine()
-        playerNode = AVAudioPlayerNode()
+        guard let audioEngine = audioEngine else { return }
         
-        guard let audioEngine = audioEngine,
-              let playerNode = playerNode else { return }
-        
-        audioEngine.attach(playerNode)
+        // Calculate samples per beat
+        samplesPerBeat = Int64(sampleRate * 60.0 / Double(bpm))
+        beatsPerBarAtomic = beatsPerBar
+        sampleTime = 0
+        beatCounter = 0
         
         let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 1)!
-        audioEngine.connect(playerNode, to: audioEngine.mainMixerNode, format: format)
+        
+        // Create source node that generates audio in real-time
+        sourceNode = AVAudioSourceNode { [weak self] _, _, frameCount, audioBufferList -> OSStatus in
+            guard let self = self, self.isGenerating else {
+                // Fill with silence when not generating
+                let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
+                for buffer in ablPointer {
+                    memset(buffer.mData, 0, Int(buffer.mDataByteSize))
+                }
+                return noErr
+            }
+            
+            let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
+            
+            for frame in 0..<Int(frameCount) {
+                var sample: Float = 0
+                
+                // Calculate position within the current beat
+                let positionInBeat = self.sampleTime % self.samplesPerBeat
+                
+                // Determine if this is a click position
+                if positionInBeat == 0 {
+                    // Start of a new beat
+                    let isAccent = self.beatCounter % self.beatsPerBarAtomic == 0
+                    
+                    // Update beat counter for UI (will be picked up by main thread)
+                    let newBeat = self.beatCounter % self.beatsPerBarAtomic
+                    DispatchQueue.main.async { [weak self] in
+                        self?.currentBeat = newBeat
+                    }
+                    
+                    self.beatCounter += 1
+                }
+                
+                // Get sample from click/accent buffer if within click duration
+                if positionInBeat < Int64(self.clickSamples.count) {
+                    let beatInBar = (self.beatCounter - 1) % self.beatsPerBarAtomic
+                    let isAccent = beatInBar == 0
+                    let samples = isAccent ? self.accentSamples : self.clickSamples
+                    sample = samples[Int(positionInBeat)]
+                } else {
+                    // Very quiet noise between clicks to keep audio session alive
+                    sample = Float.random(in: -0.0001...0.0001)
+                }
+                
+                // Write to all buffers
+                for buffer in ablPointer {
+                    let buf = buffer.mData?.assumingMemoryBound(to: Float.self)
+                    buf?[frame] = sample
+                }
+                
+                self.sampleTime += 1
+            }
+            
+            return noErr
+        }
+        
+        guard let sourceNode = sourceNode else { return }
+        
+        audioEngine.attach(sourceNode)
+        audioEngine.connect(sourceNode, to: audioEngine.mainMixerNode, format: format)
         
         do {
             try audioEngine.start()
@@ -255,84 +233,37 @@ class MetronomeEngine: ObservableObject {
     
     // MARK: - Playback Control
     func start(bpm: Int, sound: MetronomeSound = .click, beatsPerBar: Int = 4) {
-        stop()
-        
-        sessionID = UUID()
-        let currentSessionID = sessionID
+        stopInternal()
         
         setupAudioSession()
-        setupAudioEngine()
+        prepareSoundSamples(for: sound)
         
         currentBPM = bpm
         self.beatsPerBar = beatsPerBar
         currentBeat = 0
         currentSound = sound
+        
+        setupEngine(bpm: bpm, beatsPerBar: beatsPerBar)
+        
         isPlaying = true
-        
-        guard let playerNode = playerNode else { return }
-        
-        playerNode.play()
-        
-        // Schedule multiple buffers ahead for seamless playback
-        scheduleMultipleBuffers(count: 3, sessionID: currentSessionID)
+        isGenerating = true
     }
     
-    private func scheduleMultipleBuffers(count: Int, sessionID: UUID) {
-        guard self.sessionID == sessionID, isPlaying else { return }
+    private func stopInternal() {
+        isGenerating = false
+        isPlaying = false
         
-        guard let playerNode = playerNode else { return }
+        audioEngine?.stop()
+        sourceNode = nil
+        audioEngine = nil
         
-        for i in 0..<count {
-            guard let buffer = generateFullBeatBuffer(bpm: currentBPM, beatsPerBar: beatsPerBar, sound: currentSound) else {
-                continue
-            }
-            
-            if i == count - 1 {
-                // Last buffer: schedule more when it starts playing
-                playerNode.scheduleBuffer(buffer, at: nil, options: []) { [weak self] in
-                    Task { @MainActor [weak self] in
-                        guard let self = self, self.sessionID == sessionID, self.isPlaying else { return }
-                        // Schedule more buffers to keep the queue filled
-                        self.scheduleMultipleBuffers(count: 2, sessionID: sessionID)
-                    }
-                }
-            } else {
-                // Other buffers: just schedule without callback
-                playerNode.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
-            }
-        }
-        
-        // Start beat counter if not already running
-        startBeatCounter(sessionID: sessionID)
-    }
-    
-    private func startBeatCounter(sessionID: UUID) {
-        guard self.sessionID == sessionID, isPlaying else { return }
-        
-        let beatInterval = 60.0 / Double(currentBPM)
-        let barDuration = beatInterval * Double(beatsPerBar)
-        
-        Task { @MainActor [weak self] in
-            guard let self = self else { return }
-            
-            while self.sessionID == sessionID && self.isPlaying {
-                for beat in 0..<self.beatsPerBar {
-                    guard self.sessionID == sessionID, self.isPlaying else { return }
-                    
-                    self.currentBeat = beat
-                    
-                    try? await Task.sleep(nanoseconds: UInt64(beatInterval * 1_000_000_000))
-                }
-            }
-        }
+        sampleTime = 0
+        beatCounter = 0
+        currentBeat = 0
     }
     
     func stop() {
-        sessionID = UUID()
-        isPlaying = false
-        playerNode?.stop()
-        audioEngine?.stop()
-        currentBeat = 0
+        stopInternal()
     }
     
     func updateBPM(_ bpm: Int) {
@@ -349,12 +280,7 @@ class MetronomeEngine: ObservableObject {
     
     func changeSound(_ sound: MetronomeSound) {
         currentSound = sound
-        if isPlaying {
-            let bpm = currentBPM
-            let beats = beatsPerBar
-            stop()
-            start(bpm: bpm, sound: sound, beatsPerBar: beats)
-        }
+        prepareSoundSamples(for: sound)
     }
     
     deinit {
