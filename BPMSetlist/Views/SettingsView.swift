@@ -300,7 +300,7 @@ struct SettingsView: View {
     }
     
     private func sendFeedback() {
-        let email = "bpmsetlist.app@gmail.com" // TODO: Replace with your email
+        let email = "yuichiro.kohata@gmail.com"
         let subject = "BPM Setlist Feedback"
         let body = """
         
