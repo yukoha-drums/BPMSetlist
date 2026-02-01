@@ -17,6 +17,7 @@ class MetronomeEngine: ObservableObject {
     @Published var currentBPM: Int = 120
     @Published var currentBeat: Int = 0
     @Published var beatsPerBar: Int = 4
+    @Published var beatUnit: Int = 4
     
     // MARK: - Private Properties
     private var audioEngine: AVAudioEngine?
@@ -99,9 +100,10 @@ class MetronomeEngine: ObservableObject {
         guard isPlaying else { return }
         let bpm = currentBPM
         let beats = beatsPerBar
+        let unit = beatUnit
         let sound = currentSound
         stopInternal()
-        start(bpm: bpm, sound: sound, beatsPerBar: beats)
+        start(bpm: bpm, sound: sound, beatsPerBar: beats, beatUnit: unit)
     }
     
     // MARK: - Sound Generation
@@ -147,7 +149,7 @@ class MetronomeEngine: ObservableObject {
     }
     
     // MARK: - Engine Setup
-    private func setupEngine(bpm: Int, beatsPerBar: Int) {
+    private func setupEngine(bpm: Int, beatsPerBar: Int, beatUnit: Int) {
         audioEngine?.stop()
         audioEngine = nil
         sourceNode = nil
@@ -155,8 +157,12 @@ class MetronomeEngine: ObservableObject {
         audioEngine = AVAudioEngine()
         guard let audioEngine = audioEngine else { return }
         
-        // Calculate samples per beat
-        samplesPerBeat = Int64(sampleRate * 60.0 / Double(bpm))
+        // Calculate samples per beat, adjusted for beat unit
+        // BPM is always based on quarter notes (beatUnit = 4)
+        // For 6/8 time: each beat is an eighth note, so we need to play faster
+        // adjustedBPM = bpm * (beatUnit / 4)
+        let adjustedBPM = Double(bpm) * Double(beatUnit) / 4.0
+        samplesPerBeat = Int64(sampleRate * 60.0 / adjustedBPM)
         beatsPerBarAtomic = beatsPerBar
         sampleTime = 0
         beatCounter = 0
@@ -232,7 +238,7 @@ class MetronomeEngine: ObservableObject {
     }
     
     // MARK: - Playback Control
-    func start(bpm: Int, sound: MetronomeSound = .click, beatsPerBar: Int = 4) {
+    func start(bpm: Int, sound: MetronomeSound = .click, beatsPerBar: Int = 4, beatUnit: Int = 4) {
         stopInternal()
         
         setupAudioSession()
@@ -240,10 +246,11 @@ class MetronomeEngine: ObservableObject {
         
         currentBPM = bpm
         self.beatsPerBar = beatsPerBar
+        self.beatUnit = beatUnit
         currentBeat = 0
         currentSound = sound
         
-        setupEngine(bpm: bpm, beatsPerBar: beatsPerBar)
+        setupEngine(bpm: bpm, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
         
         isPlaying = true
         isGenerating = true
@@ -269,10 +276,11 @@ class MetronomeEngine: ObservableObject {
     func updateBPM(_ bpm: Int) {
         if isPlaying {
             let beats = beatsPerBar
+            let unit = beatUnit
             let sound = currentSound
             stop()
             currentBPM = bpm
-            start(bpm: bpm, sound: sound, beatsPerBar: beats)
+            start(bpm: bpm, sound: sound, beatsPerBar: beats, beatUnit: unit)
         } else {
             currentBPM = bpm
         }
@@ -341,7 +349,7 @@ class SetlistPlayer: ObservableObject {
         isPlayingSetlist = true
         
         let song = songs[index]
-        metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar)
+        metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar, beatUnit: song.beatUnit)
         startDurationTimer()
     }
     
@@ -351,7 +359,7 @@ class SetlistPlayer: ObservableObject {
             metronome.stop()
             elapsedTime = 0
             isPlayingSetlist = true
-            metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar)
+            metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar, beatUnit: song.beatUnit)
             startDurationTimer()
         }
     }
@@ -372,7 +380,7 @@ class SetlistPlayer: ObservableObject {
             elapsedTime = 0
             if isPlayingSetlist {
                 let song = songs[currentSongIndex]
-                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar)
+                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar, beatUnit: song.beatUnit)
                 startDurationTimer()
             }
         } else if isRepeatEnabled {
@@ -380,7 +388,7 @@ class SetlistPlayer: ObservableObject {
             elapsedTime = 0
             if isPlayingSetlist {
                 let song = songs[currentSongIndex]
-                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar)
+                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar, beatUnit: song.beatUnit)
                 startDurationTimer()
             }
         } else {
@@ -398,7 +406,7 @@ class SetlistPlayer: ObservableObject {
             elapsedTime = 0
             if isPlayingSetlist {
                 let song = songs[currentSongIndex]
-                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar)
+                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar, beatUnit: song.beatUnit)
                 startDurationTimer()
             }
         } else if isRepeatEnabled {
@@ -406,7 +414,7 @@ class SetlistPlayer: ObservableObject {
             elapsedTime = 0
             if isPlayingSetlist {
                 let song = songs[currentSongIndex]
-                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar)
+                metronome.start(bpm: song.bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: song.beatsPerBar, beatUnit: song.beatUnit)
                 startDurationTimer()
             }
         }

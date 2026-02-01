@@ -590,13 +590,13 @@ struct AddEditSongView: View {
         if previewMetronome.isPlaying {
             previewMetronome.stop()
         } else {
-            previewMetronome.start(bpm: bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: beatsPerBar)
+            previewMetronome.start(bpm: bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
         }
     }
     
     private func restartPreview() {
         previewMetronome.stop()
-        previewMetronome.start(bpm: bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: beatsPerBar)
+        previewMetronome.start(bpm: bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
     }
     
     private func beatColor(for beat: Int) -> Color {
@@ -619,8 +619,11 @@ struct AddEditSongView: View {
     }
     
     private func calculateBarsToSeconds() -> Int {
-        // 1小節の秒数 = (60 / BPM) * beatsPerBar
-        let secondsPerBar = (60.0 / Double(bpm)) * Double(beatsPerBar)
+        // BPMは四分音符基準（beatUnit = 4）
+        // 1拍の秒数 = (60 / BPM) * (4 / beatUnit)
+        // 1小節の秒数 = 1拍の秒数 * beatsPerBar
+        let secondsPerBeat = 60.0 / Double(bpm) * (4.0 / Double(beatUnit))
+        let secondsPerBar = secondsPerBeat * Double(beatsPerBar)
         return Int(secondsPerBar * Double(durationBars))
     }
     

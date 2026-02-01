@@ -72,8 +72,11 @@ final class Song {
             return duration
         case .bars:
             if durationBars == 0 { return 0 }
-            // 1小節の秒数 = (60 / BPM) * beatsPerBar
-            let secondsPerBar = (60.0 / Double(bpm)) * Double(beatsPerBar)
+            // BPMは四分音符基準（beatUnit = 4）
+            // 1拍の秒数 = (60 / BPM) * (4 / beatUnit)
+            // 1小節の秒数 = 1拍の秒数 * beatsPerBar
+            let secondsPerBeat = 60.0 / Double(bpm) * (4.0 / Double(beatUnit))
+            let secondsPerBar = secondsPerBeat * Double(beatsPerBar)
             return Int(secondsPerBar * Double(durationBars))
         }
     }
