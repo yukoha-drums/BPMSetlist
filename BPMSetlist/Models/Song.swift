@@ -72,11 +72,24 @@ final class Song {
             return duration
         case .bars:
             if durationBars == 0 { return 0 }
-            // BPMは四分音符基準（beatUnit = 4）
-            // 1拍の秒数 = (60 / BPM) * (4 / beatUnit)
-            // 1小節の秒数 = 1拍の秒数 * beatsPerBar
-            let secondsPerBeat = 60.0 / Double(bpm) * (4.0 / Double(beatUnit))
-            let secondsPerBar = secondsPerBeat * Double(beatsPerBar)
+            
+            // 複合拍子かどうかを判定（6/8, 9/8, 12/8など）
+            let isCompoundMeter = beatUnit == 8 && beatsPerBar % 3 == 0
+            
+            let secondsPerBar: Double
+            if isCompoundMeter {
+                // 複合拍子: BPMは付点四分音符の数を指す
+                // 基本拍の数 = beatsPerBar / 3（例：6/8なら2拍、9/8なら3拍）
+                // 1小節の秒数 = (基本拍の数) * (60 / bpm)
+                let mainBeatsPerBar = Double(beatsPerBar) / 3.0
+                secondsPerBar = mainBeatsPerBar * (60.0 / Double(bpm))
+            } else {
+                // 単純拍子: BPMは四分音符の数を指す
+                // 1拍の秒数 = (60 / BPM) * (4 / beatUnit)
+                let secondsPerBeat = 60.0 / Double(bpm) * (4.0 / Double(beatUnit))
+                secondsPerBar = secondsPerBeat * Double(beatsPerBar)
+            }
+            
             return Int(secondsPerBar * Double(durationBars))
         }
     }

@@ -157,11 +157,8 @@ class MetronomeEngine: ObservableObject {
         audioEngine = AVAudioEngine()
         guard let audioEngine = audioEngine else { return }
         
-        // Calculate samples per beat, adjusted for beat unit
-        // BPM is always based on quarter notes (beatUnit = 4)
-        // For 6/8 time: each beat is an eighth note, so we need to play faster
-        // adjustedBPM = bpm * (beatUnit / 4)
-        let adjustedBPM = Double(bpm) * Double(beatUnit) / 4.0
+        // Calculate samples per beat based on time signature type
+        let adjustedBPM = Self.calculateAdjustedBPM(bpm: bpm, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
         samplesPerBeat = Int64(sampleRate * 60.0 / adjustedBPM)
         beatsPerBarAtomic = beatsPerBar
         sampleTime = 0
@@ -234,6 +231,27 @@ class MetronomeEngine: ObservableObject {
             try audioEngine.start()
         } catch {
             print("Failed to start audio engine: \(error)")
+        }
+    }
+    
+    // MARK: - BPM Calculation
+    /// Calculate the adjusted BPM based on time signature
+    /// - Compound meters (6/8, 9/8, 12/8): BPM refers to dotted quarter notes
+    /// - Simple meters (4/4, 3/4, etc.): BPM refers to quarter notes
+    static func calculateAdjustedBPM(bpm: Int, beatsPerBar: Int, beatUnit: Int) -> Double {
+        // Compound meter detection: 6/8, 9/8, 12/8, etc.
+        // beatsPerBar is divisible by 3 and beatUnit is 8
+        let isCompoundMeter = beatUnit == 8 && beatsPerBar % 3 == 0
+        
+        if isCompoundMeter {
+            // Compound meter: BPM = dotted quarter notes per minute
+            // Each dotted quarter = 3 eighth notes
+            // So actual eighth note rate = BPM * 3
+            return Double(bpm) * 3.0
+        } else {
+            // Simple meter: BPM = quarter notes per minute
+            // Adjust for beatUnit: 4=quarter, 8=eighth(2x), 2=half(0.5x), 16=sixteenth(4x)
+            return Double(bpm) * Double(beatUnit) / 4.0
         }
     }
     
