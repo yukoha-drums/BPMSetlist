@@ -8,37 +8,74 @@
 import Foundation
 import SwiftData
 
+// 再生時間のタイプ
+enum DurationType: String, Codable, CaseIterable {
+    case time = "time"      // 時間（秒）で指定
+    case bars = "bars"      // 小節数で指定
+    case manual = "manual"  // 手動（∞）
+}
+
 @Model
 final class Song {
     var title: String
     var bpm: Int
     var order: Int
-    var duration: Int // 再生時間（秒）、0の場合は手動で次へ
+    var duration: Int // 再生時間（秒）、durationTypeがtimeの場合に使用
+    var durationBars: Int // 再生小節数、durationTypeがbarsの場合に使用
+    var durationTypeRaw: String // DurationTypeのrawValue
     var beatsPerBar: Int // 拍子の分子（1小節あたりの拍数）
     var beatUnit: Int // 拍子の分母（4 = 四分音符、8 = 八分音符）
     var createdAt: Date
     
-    init(title: String, bpm: Int, order: Int = 0, duration: Int = 0, beatsPerBar: Int = 4, beatUnit: Int = 4) {
+    var durationType: DurationType {
+        get { DurationType(rawValue: durationTypeRaw) ?? .manual }
+        set { durationTypeRaw = newValue.rawValue }
+    }
+    
+    init(title: String, bpm: Int, order: Int = 0, duration: Int = 0, durationBars: Int = 0, durationType: DurationType = .manual, beatsPerBar: Int = 4, beatUnit: Int = 4) {
         self.title = title
         self.bpm = max(20, min(300, bpm)) // BPM範囲: 20-300
         self.order = order
         self.duration = max(0, duration)
+        self.durationBars = max(0, durationBars)
+        self.durationTypeRaw = durationType.rawValue
         self.beatsPerBar = max(1, min(16, beatsPerBar))
         self.beatUnit = [2, 4, 8, 16].contains(beatUnit) ? beatUnit : 4
         self.createdAt = Date()
     }
     
     var formattedDuration: String {
-        if duration == 0 {
+        switch durationType {
+        case .manual:
             return "∞"
+        case .time:
+            if duration == 0 { return "∞" }
+            let minutes = duration / 60
+            let seconds = duration % 60
+            return String(format: "%d:%02d", minutes, seconds)
+        case .bars:
+            if durationBars == 0 { return "∞" }
+            return "\(durationBars) bars"
         }
-        let minutes = duration / 60
-        let seconds = duration % 60
-        return String(format: "%d:%02d", minutes, seconds)
     }
     
     var timeSignatureDisplay: String {
         return "\(beatsPerBar)/\(beatUnit)"
+    }
+    
+    // 小節数から秒数を計算
+    func calculateDurationInSeconds() -> Int {
+        switch durationType {
+        case .manual:
+            return 0
+        case .time:
+            return duration
+        case .bars:
+            if durationBars == 0 { return 0 }
+            // 1小節の秒数 = (60 / BPM) * beatsPerBar
+            let secondsPerBar = (60.0 / Double(bpm)) * Double(beatsPerBar)
+            return Int(secondsPerBar * Double(durationBars))
+        }
     }
 }
 
@@ -46,11 +83,11 @@ final class Song {
 extension Song {
     static var sampleSongs: [Song] {
         [
-            Song(title: "Opening", bpm: 120, order: 0),
-            Song(title: "Verse", bpm: 90, order: 1),
-            Song(title: "Chorus", bpm: 140, order: 2),
-            Song(title: "Bridge", bpm: 100, order: 3),
-            Song(title: "Finale", bpm: 160, order: 4)
+            Song(title: "Opening", bpm: 120, order: 0, duration: 0, durationBars: 8, durationType: .bars),
+            Song(title: "Verse", bpm: 90, order: 1, duration: 180, durationBars: 0, durationType: .time),
+            Song(title: "Chorus", bpm: 140, order: 2, duration: 0, durationBars: 16, durationType: .bars),
+            Song(title: "Bridge", bpm: 100, order: 3, duration: 0, durationBars: 0, durationType: .manual),
+            Song(title: "Finale", bpm: 160, order: 4, duration: 240, durationBars: 0, durationType: .time)
         ]
     }
 }

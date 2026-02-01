@@ -82,6 +82,9 @@ enum L10nKey: String {
     case durationDescription = "duration_description"
     case minutes = "minutes"
     case seconds = "seconds"
+    case manual = "manual"
+    case time = "time"
+    case bars = "bars"
     case deleteSong = "delete_song"
     case deleteConfirmation = "delete_confirmation"
     case untitled = "untitled"
@@ -158,6 +161,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "Set duration to auto-advance to next song",
             .minutes: "Minutes",
             .seconds: "Seconds",
+            .manual: "Manual",
+            .time: "Time",
+            .bars: "Bars",
             .deleteSong: "Delete Song",
             .deleteConfirmation: "Are you sure you want to delete",
             .untitled: "Untitled",
@@ -207,6 +213,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "設定した時間で次の曲へ自動移動",
             .minutes: "分",
             .seconds: "秒",
+            .manual: "手動",
+            .time: "時間",
+            .bars: "小節",
             .deleteSong: "曲を削除",
             .deleteConfirmation: "本当に削除しますか？",
             .untitled: "無題",
@@ -256,6 +265,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "Définir la durée pour passer automatiquement au morceau suivant",
             .minutes: "Minutes",
             .seconds: "Secondes",
+            .manual: "Manuel",
+            .time: "Temps",
+            .bars: "Mesures",
             .deleteSong: "Supprimer",
             .deleteConfirmation: "Voulez-vous vraiment supprimer",
             .untitled: "Sans titre",
@@ -305,6 +317,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "Imposta la durata per passare automaticamente al brano successivo",
             .minutes: "Minuti",
             .seconds: "Secondi",
+            .manual: "Manuale",
+            .time: "Tempo",
+            .bars: "Battute",
             .deleteSong: "Elimina brano",
             .deleteConfirmation: "Sei sicuro di voler eliminare",
             .untitled: "Senza titolo",
@@ -354,6 +369,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "Establecer duración para avanzar automáticamente",
             .minutes: "Minutos",
             .seconds: "Segundos",
+            .manual: "Manual",
+            .time: "Tiempo",
+            .bars: "Compases",
             .deleteSong: "Eliminar canción",
             .deleteConfirmation: "¿Seguro que quieres eliminar",
             .untitled: "Sin título",
@@ -403,6 +421,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "Dauer für automatischen Wechsel zum nächsten Song",
             .minutes: "Minuten",
             .seconds: "Sekunden",
+            .manual: "Manuell",
+            .time: "Zeit",
+            .bars: "Takte",
             .deleteSong: "Song löschen",
             .deleteConfirmation: "Möchtest du wirklich löschen",
             .untitled: "Unbenannt",
@@ -452,6 +473,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "设置时长以自动切换到下一首歌曲",
             .minutes: "分钟",
             .seconds: "秒",
+            .manual: "手动",
+            .time: "时间",
+            .bars: "小节",
             .deleteSong: "删除歌曲",
             .deleteConfirmation: "确定要删除吗",
             .untitled: "未命名",
@@ -501,6 +525,9 @@ class LocalizationManager: ObservableObject {
             .durationDescription: "설정된 시간 후 다음 곡으로 자동 전환",
             .minutes: "분",
             .seconds: "초",
+            .manual: "수동",
+            .time: "시간",
+            .bars: "마디",
             .deleteSong: "곡 삭제",
             .deleteConfirmation: "정말 삭제하시겠습니까",
             .untitled: "제목 없음",

@@ -138,7 +138,7 @@ struct SongRowView: View {
 #Preview {
     List {
         SongRowView(
-            song: Song(title: "Opening Night", bpm: 120, order: 0, duration: 180, beatsPerBar: 4, beatUnit: 4),
+            song: Song(title: "Opening Night", bpm: 120, order: 0, duration: 180, durationBars: 0, durationType: .time, beatsPerBar: 4, beatUnit: 4),
             index: 0,
             isPlaying: true,
             isSelected: true,
@@ -151,7 +151,7 @@ struct SongRowView: View {
         .listRowBackground(Color.clear)
         
         SongRowView(
-            song: Song(title: "Verse Section", bpm: 90, order: 1, duration: 0, beatsPerBar: 6, beatUnit: 8),
+            song: Song(title: "Verse Section", bpm: 90, order: 1, duration: 0, durationBars: 8, durationType: .bars, beatsPerBar: 6, beatUnit: 8),
             index: 1,
             isPlaying: false,
             isSelected: false,

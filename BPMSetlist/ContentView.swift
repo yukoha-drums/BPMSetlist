@@ -76,8 +76,8 @@ struct ContentView: View {
         .sheet(item: $editingSong) { song in
             AddEditSongView(
                 song: song,
-                onSave: { title, bpm, duration, beatsPerBar, beatUnit in
-                    updateSong(song, title: title, bpm: bpm, duration: duration, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
+                onSave: { title, bpm, duration, durationBars, durationType, beatsPerBar, beatUnit in
+                    updateSong(song, title: title, bpm: bpm, duration: duration, durationBars: durationBars, durationType: durationType, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
                 },
                 onDelete: {
                     deleteSong(song)
@@ -234,7 +234,7 @@ struct ContentView: View {
     private var bottomPlayerBar: some View {
         VStack(spacing: 0) {
             // Progress bar for current song duration
-            if player.isPlayingSetlist, let currentSong = player.currentSong, currentSong.duration > 0 {
+            if player.isPlayingSetlist, let currentSong = player.currentSong, currentSong.durationType != .manual {
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         Rectangle()
@@ -266,7 +266,7 @@ struct ContentView: View {
                                 .font(.system(size: 11, weight: .medium, design: .monospaced))
                                 .foregroundColor(AppTheme.Colors.textMuted)
                             
-                            if currentSong.duration > 0 && player.isPlayingSetlist {
+                            if currentSong.durationType != .manual && player.isPlayingSetlist {
                                 Text(player.remainingTimeFormatted)
                                     .font(.system(size: 12, weight: .medium, design: .monospaced))
                                     .foregroundColor(AppTheme.Colors.accentGold)
@@ -341,18 +341,20 @@ struct ContentView: View {
     }
     
     // MARK: - Actions
-    private func addSong(title: String, bpm: Int, duration: Int, beatsPerBar: Int, beatUnit: Int) {
+    private func addSong(title: String, bpm: Int, duration: Int, durationBars: Int, durationType: DurationType, beatsPerBar: Int, beatUnit: Int) {
         withAnimation {
-            let newSong = Song(title: title, bpm: bpm, order: songs.count, duration: duration, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
+            let newSong = Song(title: title, bpm: bpm, order: songs.count, duration: duration, durationBars: durationBars, durationType: durationType, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
             modelContext.insert(newSong)
         }
     }
     
-    private func updateSong(_ song: Song, title: String, bpm: Int, duration: Int, beatsPerBar: Int, beatUnit: Int) {
+    private func updateSong(_ song: Song, title: String, bpm: Int, duration: Int, durationBars: Int, durationType: DurationType, beatsPerBar: Int, beatUnit: Int) {
         withAnimation {
             song.title = title
             song.bpm = bpm
             song.duration = duration
+            song.durationBars = durationBars
+            song.durationType = durationType
             song.beatsPerBar = beatsPerBar
             song.beatUnit = beatUnit
         }

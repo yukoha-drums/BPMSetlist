@@ -12,13 +12,15 @@ struct AddEditSongView: View {
     @ObservedObject var localization = LocalizationManager.shared
     
     let song: Song?
-    let onSave: (String, Int, Int, Int, Int) -> Void // title, bpm, duration, beatsPerBar, beatUnit
+    let onSave: (String, Int, Int, Int, DurationType, Int, Int) -> Void // title, bpm, duration, durationBars, durationType, beatsPerBar, beatUnit
     let onDelete: (() -> Void)?
     
     @State private var title: String = ""
     @State private var bpm: Int = 120
     @State private var durationMinutes: Int = 0
     @State private var durationSeconds: Int = 0
+    @State private var durationBars: Int = 8
+    @State private var durationType: DurationType = .manual
     @State private var beatsPerBar: Int = 4
     @State private var beatUnit: Int = 4
     @State private var showDeleteConfirmation: Bool = false
@@ -44,7 +46,7 @@ struct AddEditSongView: View {
         (2, 8), (4, 8)
     ]
     
-    init(song: Song? = nil, onSave: @escaping (String, Int, Int, Int, Int) -> Void, onDelete: (() -> Void)? = nil) {
+    init(song: Song? = nil, onSave: @escaping (String, Int, Int, Int, DurationType, Int, Int) -> Void, onDelete: (() -> Void)? = nil) {
         self.song = song
         self.onSave = onSave
         self.onDelete = onDelete
@@ -52,6 +54,8 @@ struct AddEditSongView: View {
         _bpm = State(initialValue: song?.bpm ?? 120)
         _beatsPerBar = State(initialValue: song?.beatsPerBar ?? 4)
         _beatUnit = State(initialValue: song?.beatUnit ?? 4)
+        _durationType = State(initialValue: song?.durationType ?? .manual)
+        _durationBars = State(initialValue: song?.durationBars ?? 8)
         
         let duration = song?.duration ?? 0
         _durationMinutes = State(initialValue: duration / 60)
@@ -302,110 +306,208 @@ struct AddEditSongView: View {
                                     .foregroundColor(AppTheme.Colors.textMuted)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                HStack(spacing: AppTheme.Spacing.lg) {
-                                    // Minutes
-                                    VStack(spacing: AppTheme.Spacing.xs) {
-                                        Text(localization.localized(.minutes))
-                                            .font(.system(size: 12))
-                                            .foregroundColor(AppTheme.Colors.textMuted)
-                                        
-                                        HStack(spacing: AppTheme.Spacing.sm) {
-                                            Button {
-                                                if durationMinutes > 0 {
-                                                    durationMinutes -= 1
-                                                }
-                                            } label: {
-                                                Image(systemName: "minus")
-                                                    .frame(width: 36, height: 36)
-                                                    .background(AppTheme.Colors.cardBackgroundElevated)
-                                                    .cornerRadius(AppTheme.CornerRadius.small)
-                                            }
-                                            
-                                            Text("\(durationMinutes)")
-                                                .font(.system(size: 28, weight: .bold, design: .monospaced))
-                                                .foregroundColor(AppTheme.Colors.textPrimary)
-                                                .frame(width: 50)
-                                            
-                                            Button {
-                                                if durationMinutes < 30 {
-                                                    durationMinutes += 1
-                                                }
-                                            } label: {
-                                                Image(systemName: "plus")
-                                                    .frame(width: 36, height: 36)
-                                                    .background(AppTheme.Colors.cardBackgroundElevated)
-                                                    .cornerRadius(AppTheme.CornerRadius.small)
-                                            }
+                                // Duration Type Selector
+                                HStack(spacing: AppTheme.Spacing.sm) {
+                                    ForEach([DurationType.manual, DurationType.time, DurationType.bars], id: \.self) { type in
+                                        Button {
+                                            durationType = type
+                                        } label: {
+                                            Text(durationTypeLabel(type))
+                                                .font(.system(size: 14, weight: .semibold))
+                                                .foregroundColor(durationType == type ? AppTheme.Colors.background : AppTheme.Colors.textPrimary)
+                                                .frame(maxWidth: .infinity)
+                                                .padding(.vertical, AppTheme.Spacing.md)
+                                                .background(durationType == type ? AppTheme.Colors.accentGold : AppTheme.Colors.cardBackgroundElevated)
+                                                .cornerRadius(AppTheme.CornerRadius.medium)
                                         }
-                                        .foregroundColor(AppTheme.Colors.textPrimary)
-                                    }
-                                    
-                                    Text(":")
-                                        .font(.system(size: 28, weight: .bold))
-                                        .foregroundColor(AppTheme.Colors.textMuted)
-                                    
-                                    // Seconds
-                                    VStack(spacing: AppTheme.Spacing.xs) {
-                                        Text(localization.localized(.seconds))
-                                            .font(.system(size: 12))
-                                            .foregroundColor(AppTheme.Colors.textMuted)
-                                        
-                                        HStack(spacing: AppTheme.Spacing.sm) {
-                                            Button {
-                                                if durationSeconds > 0 {
-                                                    durationSeconds -= 1
-                                                } else if durationMinutes > 0 {
-                                                    durationMinutes -= 1
-                                                    durationSeconds = 59
-                                                }
-                                            } label: {
-                                                Image(systemName: "minus")
-                                                    .frame(width: 36, height: 36)
-                                                    .background(AppTheme.Colors.cardBackgroundElevated)
-                                                    .cornerRadius(AppTheme.CornerRadius.small)
-                                            }
-                                            
-                                            Text(String(format: "%02d", durationSeconds))
-                                                .font(.system(size: 28, weight: .bold, design: .monospaced))
-                                                .foregroundColor(AppTheme.Colors.textPrimary)
-                                                .frame(width: 50)
-                                            
-                                            Button {
-                                                if durationSeconds < 59 {
-                                                    durationSeconds += 1
-                                                } else {
-                                                    durationSeconds = 0
-                                                    if durationMinutes < 30 {
-                                                        durationMinutes += 1
-                                                    }
-                                                }
-                                            } label: {
-                                                Image(systemName: "plus")
-                                                    .frame(width: 36, height: 36)
-                                                    .background(AppTheme.Colors.cardBackgroundElevated)
-                                                    .cornerRadius(AppTheme.CornerRadius.small)
-                                            }
-                                        }
-                                        .foregroundColor(AppTheme.Colors.textPrimary)
                                     }
                                 }
                                 
-                                // Quick duration presets
-                                HStack(spacing: AppTheme.Spacing.sm) {
-                                    ForEach([(0, "∞"), (180, "3:00"), (240, "4:00"), (300, "5:00")], id: \.0) { seconds, label in
-                                        Button {
-                                            durationMinutes = seconds / 60
-                                            durationSeconds = seconds % 60
-                                        } label: {
-                                            Text(label)
-                                                .font(.system(size: 14, weight: .medium))
-                                                .foregroundColor(totalDuration == seconds ? AppTheme.Colors.background : AppTheme.Colors.textPrimary)
-                                                .frame(maxWidth: .infinity)
-                                                .padding(.vertical, AppTheme.Spacing.sm)
-                                                .background(totalDuration == seconds ? AppTheme.Colors.accentGold : AppTheme.Colors.cardBackgroundElevated)
-                                                .cornerRadius(AppTheme.CornerRadius.small)
+                                // Time Input (shown when durationType == .time)
+                                if durationType == .time {
+                                    HStack(spacing: AppTheme.Spacing.lg) {
+                                        // Minutes
+                                        VStack(spacing: AppTheme.Spacing.xs) {
+                                            Text(localization.localized(.minutes))
+                                                .font(.system(size: 12))
+                                                .foregroundColor(AppTheme.Colors.textMuted)
+                                            
+                                            HStack(spacing: AppTheme.Spacing.sm) {
+                                                Button {
+                                                    if durationMinutes > 0 {
+                                                        durationMinutes -= 1
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "minus")
+                                                        .frame(width: 36, height: 36)
+                                                        .background(AppTheme.Colors.cardBackgroundElevated)
+                                                        .cornerRadius(AppTheme.CornerRadius.small)
+                                                }
+                                                
+                                                Text("\(durationMinutes)")
+                                                    .font(.system(size: 28, weight: .bold, design: .monospaced))
+                                                    .foregroundColor(AppTheme.Colors.textPrimary)
+                                                    .frame(width: 50)
+                                                
+                                                Button {
+                                                    if durationMinutes < 30 {
+                                                        durationMinutes += 1
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "plus")
+                                                        .frame(width: 36, height: 36)
+                                                        .background(AppTheme.Colors.cardBackgroundElevated)
+                                                        .cornerRadius(AppTheme.CornerRadius.small)
+                                                }
+                                            }
+                                            .foregroundColor(AppTheme.Colors.textPrimary)
+                                        }
+                                        
+                                        Text(":")
+                                            .font(.system(size: 28, weight: .bold))
+                                            .foregroundColor(AppTheme.Colors.textMuted)
+                                        
+                                        // Seconds
+                                        VStack(spacing: AppTheme.Spacing.xs) {
+                                            Text(localization.localized(.seconds))
+                                                .font(.system(size: 12))
+                                                .foregroundColor(AppTheme.Colors.textMuted)
+                                            
+                                            HStack(spacing: AppTheme.Spacing.sm) {
+                                                Button {
+                                                    if durationSeconds > 0 {
+                                                        durationSeconds -= 1
+                                                    } else if durationMinutes > 0 {
+                                                        durationMinutes -= 1
+                                                        durationSeconds = 59
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "minus")
+                                                        .frame(width: 36, height: 36)
+                                                        .background(AppTheme.Colors.cardBackgroundElevated)
+                                                        .cornerRadius(AppTheme.CornerRadius.small)
+                                                }
+                                                
+                                                Text(String(format: "%02d", durationSeconds))
+                                                    .font(.system(size: 28, weight: .bold, design: .monospaced))
+                                                    .foregroundColor(AppTheme.Colors.textPrimary)
+                                                    .frame(width: 50)
+                                                
+                                                Button {
+                                                    if durationSeconds < 59 {
+                                                        durationSeconds += 1
+                                                    } else {
+                                                        durationSeconds = 0
+                                                        if durationMinutes < 30 {
+                                                            durationMinutes += 1
+                                                        }
+                                                    }
+                                                } label: {
+                                                    Image(systemName: "plus")
+                                                        .frame(width: 36, height: 36)
+                                                        .background(AppTheme.Colors.cardBackgroundElevated)
+                                                        .cornerRadius(AppTheme.CornerRadius.small)
+                                                }
+                                            }
+                                            .foregroundColor(AppTheme.Colors.textPrimary)
                                         }
                                     }
+                                    
+                                    // Quick time presets
+                                    HStack(spacing: AppTheme.Spacing.sm) {
+                                        ForEach([(60, "1:00"), (180, "3:00"), (240, "4:00"), (300, "5:00")], id: \.0) { seconds, label in
+                                            Button {
+                                                durationMinutes = seconds / 60
+                                                durationSeconds = seconds % 60
+                                            } label: {
+                                                Text(label)
+                                                    .font(.system(size: 14, weight: .medium))
+                                                    .foregroundColor(totalDuration == seconds ? AppTheme.Colors.background : AppTheme.Colors.textPrimary)
+                                                    .frame(maxWidth: .infinity)
+                                                    .padding(.vertical, AppTheme.Spacing.sm)
+                                                    .background(totalDuration == seconds ? AppTheme.Colors.accentGold : AppTheme.Colors.cardBackgroundElevated)
+                                                    .cornerRadius(AppTheme.CornerRadius.small)
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                // Bars Input (shown when durationType == .bars)
+                                if durationType == .bars {
+                                    VStack(spacing: AppTheme.Spacing.md) {
+                                        // Bars count with stepper
+                                        HStack(spacing: AppTheme.Spacing.md) {
+                                            Button {
+                                                if durationBars > 1 {
+                                                    durationBars -= 1
+                                                }
+                                            } label: {
+                                                Image(systemName: "minus")
+                                                    .font(.system(size: 20, weight: .bold))
+                                                    .frame(width: 50, height: 50)
+                                                    .background(AppTheme.Colors.cardBackgroundElevated)
+                                                    .cornerRadius(AppTheme.CornerRadius.medium)
+                                            }
+                                            .foregroundColor(AppTheme.Colors.textPrimary)
+                                            
+                                            VStack(spacing: 2) {
+                                                Text("\(durationBars)")
+                                                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+                                                    .foregroundColor(AppTheme.Colors.accentGold)
+                                                Text(localization.localized(.bars))
+                                                    .font(.system(size: 14))
+                                                    .foregroundColor(AppTheme.Colors.textMuted)
+                                            }
+                                            .frame(minWidth: 120)
+                                            
+                                            Button {
+                                                if durationBars < 999 {
+                                                    durationBars += 1
+                                                }
+                                            } label: {
+                                                Image(systemName: "plus")
+                                                    .font(.system(size: 20, weight: .bold))
+                                                    .frame(width: 50, height: 50)
+                                                    .background(AppTheme.Colors.cardBackgroundElevated)
+                                                    .cornerRadius(AppTheme.CornerRadius.medium)
+                                            }
+                                            .foregroundColor(AppTheme.Colors.textPrimary)
+                                        }
+                                        
+                                        // Quick bars presets
+                                        HStack(spacing: AppTheme.Spacing.sm) {
+                                            ForEach([4, 8, 16, 32], id: \.self) { bars in
+                                                Button {
+                                                    durationBars = bars
+                                                } label: {
+                                                    Text("\(bars)")
+                                                        .font(.system(size: 16, weight: .semibold))
+                                                        .foregroundColor(durationBars == bars ? AppTheme.Colors.background : AppTheme.Colors.textPrimary)
+                                                        .frame(maxWidth: .infinity)
+                                                        .padding(.vertical, AppTheme.Spacing.md)
+                                                        .background(durationBars == bars ? AppTheme.Colors.accentGold : AppTheme.Colors.cardBackgroundElevated)
+                                                        .cornerRadius(AppTheme.CornerRadius.small)
+                                                }
+                                            }
+                                        }
+                                        
+                                        // Estimated time display
+                                        let estimatedSeconds = calculateBarsToSeconds()
+                                        if estimatedSeconds > 0 {
+                                            Text("≈ \(formatSeconds(estimatedSeconds)) @ \(bpm) BPM")
+                                                .font(.system(size: 12))
+                                                .foregroundColor(AppTheme.Colors.textMuted)
+                                        }
+                                    }
+                                }
+                                
+                                // Manual mode display
+                                if durationType == .manual {
+                                    Text("∞")
+                                        .font(.system(size: 48, weight: .bold))
+                                        .foregroundColor(AppTheme.Colors.textMuted)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, AppTheme.Spacing.lg)
                                 }
                             }
                             .padding(AppTheme.Spacing.md)
@@ -460,7 +562,7 @@ struct AddEditSongView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(localization.localized(.save)) {
                         previewMetronome.stop()
-                        onSave(title.isEmpty ? localization.localized(.untitled) : title, bpm, totalDuration, beatsPerBar, beatUnit)
+                        onSave(title.isEmpty ? localization.localized(.untitled) : title, bpm, totalDuration, durationBars, durationType, beatsPerBar, beatUnit)
                         dismiss()
                     }
                     .foregroundColor(AppTheme.Colors.accentGold)
@@ -504,17 +606,40 @@ struct AddEditSongView: View {
         }
         return AppTheme.Colors.cardBackgroundElevated
     }
+    
+    private func durationTypeLabel(_ type: DurationType) -> String {
+        switch type {
+        case .manual:
+            return "∞ " + localization.localized(.manual)
+        case .time:
+            return localization.localized(.time)
+        case .bars:
+            return localization.localized(.bars)
+        }
+    }
+    
+    private func calculateBarsToSeconds() -> Int {
+        // 1小節の秒数 = (60 / BPM) * beatsPerBar
+        let secondsPerBar = (60.0 / Double(bpm)) * Double(beatsPerBar)
+        return Int(secondsPerBar * Double(durationBars))
+    }
+    
+    private func formatSeconds(_ seconds: Int) -> String {
+        let minutes = seconds / 60
+        let secs = seconds % 60
+        return String(format: "%d:%02d", minutes, secs)
+    }
 }
 
 // MARK: - Preview
 #Preview("Add") {
-    AddEditSongView(onSave: { _, _, _, _, _ in })
+    AddEditSongView(onSave: { _, _, _, _, _, _, _ in })
 }
 
 #Preview("Edit") {
     AddEditSongView(
-        song: Song(title: "Test Song", bpm: 120, duration: 180, beatsPerBar: 4, beatUnit: 4),
-        onSave: { _, _, _, _, _ in },
+        song: Song(title: "Test Song", bpm: 120, duration: 180, durationBars: 8, durationType: .time, beatsPerBar: 4, beatUnit: 4),
+        onSave: { _, _, _, _, _, _, _ in },
         onDelete: {}
     )
 }

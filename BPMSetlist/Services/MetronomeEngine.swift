@@ -307,13 +307,17 @@ class SetlistPlayer: ObservableObject {
     }
     
     var progress: Double {
-        guard let song = currentSong, song.duration > 0 else { return 0 }
-        return min(1.0, Double(elapsedTime) / Double(song.duration))
+        guard let song = currentSong else { return 0 }
+        let totalDuration = song.calculateDurationInSeconds()
+        guard totalDuration > 0 else { return 0 }
+        return min(1.0, Double(elapsedTime) / Double(totalDuration))
     }
     
     var remainingTime: Int {
-        guard let song = currentSong, song.duration > 0 else { return 0 }
-        return max(0, song.duration - elapsedTime)
+        guard let song = currentSong else { return 0 }
+        let totalDuration = song.calculateDurationInSeconds()
+        guard totalDuration > 0 else { return 0 }
+        return max(0, totalDuration - elapsedTime)
     }
     
     var remainingTimeFormatted: String {
@@ -415,7 +419,9 @@ class SetlistPlayer: ObservableObject {
     
     // MARK: - Duration Timer
     private func startDurationTimer() {
-        guard let song = currentSong, song.duration > 0 else { return }
+        guard let song = currentSong else { return }
+        let totalDuration = song.calculateDurationInSeconds()
+        guard totalDuration > 0 else { return }
         
         stopDurationTimer()
         
@@ -426,10 +432,11 @@ class SetlistPlayer: ObservableObject {
                 
                 self.elapsedTime += 1
                 
-                if let currentSong = self.currentSong,
-                   currentSong.duration > 0,
-                   self.elapsedTime >= currentSong.duration {
-                    self.next()
+                if let currentSong = self.currentSong {
+                    let duration = currentSong.calculateDurationInSeconds()
+                    if duration > 0 && self.elapsedTime >= duration {
+                        self.next()
+                    }
                 }
             }
         }
