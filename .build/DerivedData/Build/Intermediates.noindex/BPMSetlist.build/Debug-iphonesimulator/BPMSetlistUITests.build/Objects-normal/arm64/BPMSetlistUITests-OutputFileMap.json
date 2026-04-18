@@ -1,0 +1,39 @@
+{
+  "" : {
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests-primary.dia",
+    "emit-module-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests-primary-emit-module.dia",
+    "pch" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests-primary.swiftdeps"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlistUITests/BPMSetlistUITests.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITests~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlistUITests/BPMSetlistUITestsLaunchTests.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/BPMSetlistUITestsLaunchTests~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlistUITests/ScreenshotGenerator.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlistUITests.build/Objects-normal/arm64/ScreenshotGenerator~partial.swiftmodule"
+  }
+}

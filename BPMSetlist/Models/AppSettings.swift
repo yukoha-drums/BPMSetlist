@@ -39,6 +39,7 @@ class AppSettings: ObservableObject {
     @AppStorage("listItemSize") var listItemSize: Double = 80
     @AppStorage("isRepeatEnabled") var isRepeatEnabled: Bool = false
     @AppStorage("countInBars") var countInBars: Int = 1
+    @AppStorage("isVisualBeatEnabled") var isVisualBeatEnabled: Bool = true
     
     var selectedSound: MetronomeSound {
         get { MetronomeSound(rawValue: selectedSoundRaw) ?? .click }

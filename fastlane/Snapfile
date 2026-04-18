@@ -1,0 +1,39 @@
+# Snapfile
+# BPMSetlist Screenshot Configuration
+
+# デバイス一覧
+devices([
+  # iPhone
+  "iPhone 15 Pro Max",      # 6.7インチ (必須)
+  "iPhone 15 Pro",          # 6.1インチ (必須)
+  "iPhone SE (3rd generation)", # 4.7インチ (オプション)
+  
+  # iPad
+  "iPad Pro (12.9-inch) (6th generation)", # 12.9インチ (必須)
+  "iPad Pro (11-inch) (4th generation)",   # 11インチ
+  "iPad Air 11-inch (M2)",                 # 11インチ Air
+])
+
+# 言語設定（日本語と英語）
+languages([
+  "ja",
+  "en-US"
+])
+
+# スクリーンショット保存先
+output_directory "./screenshots"
+
+# 以前のスクリーンショットをクリア
+clear_previous_screenshots true
+
+# ステータスバーを綺麗に表示
+override_status_bar true
+
+# スキーム名
+scheme "BPMSetlist"
+
+# テストターゲット
+testplan "BPMSetlist"
+
+# スクリーンショット生成時に表示するメッセージ
+# number_of_retries 1

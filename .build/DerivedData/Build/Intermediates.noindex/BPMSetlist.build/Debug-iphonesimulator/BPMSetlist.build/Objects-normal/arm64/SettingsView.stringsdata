@@ -1,0 +1,24 @@
+{
+  "source": "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Views/SettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "1.0.0",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 155
+        }
+      },
+      {
+        "comment": "",
+        "key": "YuKoha Drums",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 169
+        }
+      }
+    ]
+  },
+  "version": 1
+}

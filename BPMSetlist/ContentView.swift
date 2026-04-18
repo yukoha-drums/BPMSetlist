@@ -248,6 +248,19 @@ struct ContentView: View {
                 .frame(height: 3)
             }
             
+            // Visual beat indicator (shown when a song is loaded and the setting is on)
+            if settings.isVisualBeatEnabled, player.currentSong != nil {
+                BeatIndicatorView(
+                    engine: player.metronome,
+                    isActive: player.isPlayingSetlist,
+                    style: .compact
+                )
+                .padding(.horizontal, AppTheme.Spacing.md)
+                .padding(.top, AppTheme.Spacing.sm)
+                .padding(.bottom, AppTheme.Spacing.xs)
+                .background(AppTheme.Colors.cardBackground)
+            }
+            
             HStack(spacing: AppTheme.Spacing.lg) {
                 // Current Song Info
                 if let currentSong = player.currentSong {

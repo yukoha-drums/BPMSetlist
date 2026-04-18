@@ -93,6 +93,8 @@ enum L10nKey: String {
     case metronomeSound = "metronome_sound"
     case countInBars = "count_in_bars"
     case off = "off"
+    case visualBeat = "visual_beat"
+    case visualBeatDescription = "visual_beat_description"
     case language = "language"
     case about = "about"
     case version = "version"
@@ -170,6 +172,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "METRONOME SOUND",
             .countInBars: "COUNT-IN BARS",
             .off: "Off",
+            .visualBeat: "Visual Beat",
+            .visualBeatDescription: "Show a flashing indicator for each beat",
             .language: "LANGUAGE",
             .about: "ABOUT",
             .version: "Version",
@@ -222,6 +226,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "メトロノーム音",
             .countInBars: "カウントイン",
             .off: "オフ",
+            .visualBeat: "ビート表示",
+            .visualBeatDescription: "各拍に合わせてインジケータを光らせます",
             .language: "言語",
             .about: "このアプリについて",
             .version: "バージョン",
@@ -274,6 +280,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "SON DU MÉTRONOME",
             .countInBars: "MESURES DE DÉCOMPTE",
             .off: "Désactivé",
+            .visualBeat: "Indicateur visuel",
+            .visualBeatDescription: "Afficher un voyant clignotant à chaque temps",
             .language: "LANGUE",
             .about: "À PROPOS",
             .version: "Version",
@@ -326,6 +334,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "SUONO METRONOMO",
             .countInBars: "BATTUTE DI CONTEGGIO",
             .off: "Spento",
+            .visualBeat: "Indicatore visivo",
+            .visualBeatDescription: "Mostra un indicatore lampeggiante a ogni battuta",
             .language: "LINGUA",
             .about: "INFO",
             .version: "Versione",
@@ -378,6 +388,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "SONIDO DEL METRÓNOMO",
             .countInBars: "COMPASES DE CUENTA",
             .off: "Apagado",
+            .visualBeat: "Indicador visual",
+            .visualBeatDescription: "Muestra un indicador que parpadea en cada pulso",
             .language: "IDIOMA",
             .about: "ACERCA DE",
             .version: "Versión",
@@ -430,6 +442,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "METRONOM-KLANG",
             .countInBars: "EINZÄHLTAKTE",
             .off: "Aus",
+            .visualBeat: "Visueller Beat",
+            .visualBeatDescription: "Zeigt bei jedem Schlag einen blinkenden Indikator",
             .language: "SPRACHE",
             .about: "ÜBER",
             .version: "Version",
@@ -482,6 +496,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "节拍器音效",
             .countInBars: "预备拍",
             .off: "关闭",
+            .visualBeat: "节拍指示灯",
+            .visualBeatDescription: "每拍显示闪烁的视觉提示",
             .language: "语言",
             .about: "关于",
             .version: "版本",
@@ -534,6 +550,8 @@ class LocalizationManager: ObservableObject {
             .metronomeSound: "메트로놈 소리",
             .countInBars: "카운트인 마디",
             .off: "끄기",
+            .visualBeat: "비트 표시",
+            .visualBeatDescription: "각 박자마다 인디케이터를 깜빡입니다",
             .language: "언어",
             .about: "정보",
             .version: "버전",

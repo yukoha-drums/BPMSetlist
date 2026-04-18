@@ -119,16 +119,12 @@ struct AddEditSongView: View {
                             VStack(spacing: AppTheme.Spacing.lg) {
                                 // Large BPM Display with beat indicator
                                 VStack(spacing: AppTheme.Spacing.sm) {
-                                    // Beat Indicators
                                     if previewMetronome.isPlaying {
-                                        HStack(spacing: AppTheme.Spacing.sm) {
-                                            ForEach(0..<beatsPerBar, id: \.self) { beat in
-                                                Circle()
-                                                    .fill(beatColor(for: beat))
-                                                    .frame(width: 12, height: 12)
-                                                    .animation(.easeInOut(duration: 0.1), value: previewMetronome.currentBeat)
-                                            }
-                                        }
+                                        BeatIndicatorView(
+                                            engine: previewMetronome,
+                                            isActive: previewMetronome.isPlaying,
+                                            style: .expanded
+                                        )
                                     }
                                     
                                     Text("\(bpm)")
@@ -597,14 +593,6 @@ struct AddEditSongView: View {
     private func restartPreview() {
         previewMetronome.stop()
         previewMetronome.start(bpm: bpm, sound: AppSettings.shared.selectedSound, beatsPerBar: beatsPerBar, beatUnit: beatUnit)
-    }
-    
-    private func beatColor(for beat: Int) -> Color {
-        let currentBeatInBar = (previewMetronome.currentBeat - 1) % beatsPerBar
-        if currentBeatInBar == beat {
-            return beat == 0 ? AppTheme.Colors.accentGold : AppTheme.Colors.playing
-        }
-        return AppTheme.Colors.cardBackgroundElevated
     }
     
     private func durationTypeLabel(_ type: DurationType) -> String {

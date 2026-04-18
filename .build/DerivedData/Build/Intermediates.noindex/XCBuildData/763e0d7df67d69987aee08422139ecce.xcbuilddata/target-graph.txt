@@ -1,0 +1,6 @@
+Target dependency graph (3 targets)
+Target 'BPMSetlistTests' in project 'BPMSetlist'
+➜ Explicit dependency on target 'BPMSetlist' in project 'BPMSetlist'
+Target 'BPMSetlistUITests' in project 'BPMSetlist'
+➜ Explicit dependency on target 'BPMSetlist' in project 'BPMSetlist'
+Target 'BPMSetlist' in project 'BPMSetlist' (no dependencies)

@@ -1,0 +1,24 @@
+{
+  "source": "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 102
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld BPM",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 261
+        }
+      }
+    ]
+  },
+  "version": 1
+}

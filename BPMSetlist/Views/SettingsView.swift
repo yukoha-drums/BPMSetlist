@@ -97,6 +97,36 @@ struct SettingsView: View {
                             }
                         }
                         
+                        // Visual Beat Indicator
+                        VStack(alignment: .leading, spacing: AppTheme.Spacing.sm) {
+                            Text(localization.localized(.visualBeat))
+                                .font(AppTheme.Typography.caption)
+                                .foregroundColor(AppTheme.Colors.textMuted)
+                            
+                            Toggle(isOn: $settings.isVisualBeatEnabled) {
+                                VStack(alignment: .leading, spacing: AppTheme.Spacing.xs) {
+                                    Text(localization.localized(.visualBeat))
+                                        .font(AppTheme.Typography.headline)
+                                        .foregroundColor(AppTheme.Colors.textPrimary)
+                                    Text(localization.localized(.visualBeatDescription))
+                                        .font(.system(size: 12))
+                                        .foregroundColor(AppTheme.Colors.textMuted)
+                                        .lineLimit(2)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                            }
+                            .tint(AppTheme.Colors.accentGold)
+                            .padding(AppTheme.Spacing.md)
+                            .background(
+                                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                                    .fill(AppTheme.Colors.cardBackground)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: AppTheme.CornerRadius.medium)
+                                    .stroke(AppTheme.Colors.border, lineWidth: 1)
+                            )
+                        }
+                        
                         // Language Selection
                         VStack(alignment: .leading, spacing: AppTheme.Spacing.md) {
                             Text(localization.localized(.language))

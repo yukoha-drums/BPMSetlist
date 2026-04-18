@@ -16,6 +16,7 @@ class MetronomeEngine: ObservableObject {
     @Published var isPlaying: Bool = false
     @Published var currentBPM: Int = 120
     @Published var currentBeat: Int = 0
+    @Published var beatTick: Int = 0
     @Published var beatsPerBar: Int = 4
     @Published var beatUnit: Int = 4
     
@@ -193,7 +194,11 @@ class MetronomeEngine: ObservableObject {
                     // Update beat counter for UI (will be picked up by main thread)
                     let newBeat = self.beatCounter % self.beatsPerBarAtomic
                     DispatchQueue.main.async { [weak self] in
-                        self?.currentBeat = newBeat
+                        guard let self = self else { return }
+                        self.currentBeat = newBeat
+                        // Monotonically increasing tick so SwiftUI onChange always fires,
+                        // even when beatsPerBar == 1 or the value otherwise repeats.
+                        self.beatTick &+= 1
                     }
                     
                     self.beatCounter += 1
@@ -285,6 +290,7 @@ class MetronomeEngine: ObservableObject {
         sampleTime = 0
         beatCounter = 0
         currentBeat = 0
+        beatTick = 0
     }
     
     func stop() {

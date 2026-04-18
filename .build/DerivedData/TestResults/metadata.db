@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FormatVersion</key>
+	<integer>1</integer>
+	<key>Store</key>
+	<dict>
+		<key>BPMSetlistUITests</key>
+		<dict>
+			<key>ScreenshotGenerator</key>
+			<dict>
+				<key>testScreenshot_01_EmptyState</key>
+				<dict>
+					<key>mrnet</key>
+					<real>13.150941014289856</real>
+				</dict>
+				<key>testScreenshot_02_AddSongScreen</key>
+				<dict>
+					<key>mrnet</key>
+					<real>12.305806040763855</real>
+				</dict>
+				<key>testScreenshot_03_WithSongs</key>
+				<dict>
+					<key>mrnet</key>
+					<real>69.980705976486206</real>
+				</dict>
+				<key>testScreenshot_04_Playing</key>
+				<dict>
+					<key>mrnet</key>
+					<real>55.234418034553528</real>
+				</dict>
+				<key>testScreenshot_05_Settings</key>
+				<dict>
+					<key>mrnet</key>
+					<real>17.795058965682983</real>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

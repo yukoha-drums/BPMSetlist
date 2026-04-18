@@ -1,0 +1,78 @@
+{
+  "buildCommand" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "ce276b59ecb0eef21dc5af0f1337f9b686e63d53969a9e5df979a3de58f5382a"
+    },
+    {
+      "guid" : "ce276b59ecb0eef21dc5af0f1337f9b6d6c1154c9f59d1960c9d9d70ab386623"
+    },
+    {
+      "guid" : "ce276b59ecb0eef21dc5af0f1337f9b6c680e5272a15bc05f2b941dc599e2e1b"
+    }
+  ],
+  "containerPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "iphonesimulator",
+      "sdk" : "iphonesimulator26.2",
+      "sdkVariant" : "iphonesimulator",
+      "supportedArchitectures" : [
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Products",
+      "derivedDataPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+          "CODE_SIGNING_ALLOWED" : "NO"
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPad16,6-A",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION" : "17.5",
+          "ASSETCATALOG_FILTER_FOR_THINNING_DEVICE_CONFIGURATION" : "iPad16,6-A",
+          "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
+          "CLANG_COVERAGE_MAPPING" : "YES",
+          "CLANG_PROFILE_DATA_DIRECTORY" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/ProfileData",
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "YES",
+          "ONLY_ACTIVE_ARCH" : "YES",
+          "TARGET_DEVICE_IDENTIFIER" : "DA0624D7-331F-431C-8FCB-6665F22EE7A2",
+          "TARGET_DEVICE_MODEL" : "iPad16,6",
+          "TARGET_DEVICE_OS_VERSION" : "17.5",
+          "TARGET_DEVICE_PLATFORM_NAME" : "iphonesimulator"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "test",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

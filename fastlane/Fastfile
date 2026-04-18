@@ -1,0 +1,57 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+
+default_platform(:ios)
+
+platform :ios do
+  
+  desc "Generate screenshots for all devices"
+  lane :screenshots do
+    # スクリーンショットを生成
+    capture_screenshots(
+      scheme: "BPMSetlist",
+      output_directory: "./screenshots",
+      clear_previous_screenshots: true,
+      override_status_bar: true,
+      localize_simulator: true
+    )
+    
+    puts "✅ スクリーンショット生成完了！"
+    puts "📁 保存先: ./screenshots/"
+  end
+  
+  desc "Generate screenshots for iPhone only"
+  lane :screenshots_iphone do
+    capture_screenshots(
+      scheme: "BPMSetlist",
+      output_directory: "./screenshots",
+      clear_previous_screenshots: true,
+      override_status_bar: true,
+      devices: [
+        "iPhone 15 Pro Max",
+        "iPhone 15 Pro",
+        "iPhone SE (3rd generation)"
+      ]
+    )
+    
+    puts "✅ iPhone用スクリーンショット生成完了！"
+  end
+  
+  desc "Generate screenshots for iPad only"
+  lane :screenshots_ipad do
+    capture_screenshots(
+      scheme: "BPMSetlist",
+      output_directory: "./screenshots",
+      clear_previous_screenshots: true,
+      override_status_bar: true,
+      devices: [
+        "iPad Pro (12.9-inch) (6th generation)",
+        "iPad Pro (11-inch) (4th generation)",
+        "iPad Air (5th generation)"
+      ]
+    )
+    
+    puts "✅ iPad用スクリーンショット生成完了！"
+  end
+  
+end

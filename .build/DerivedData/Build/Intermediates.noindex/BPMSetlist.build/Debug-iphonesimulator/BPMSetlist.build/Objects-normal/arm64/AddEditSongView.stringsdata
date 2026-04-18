@@ -1,0 +1,136 @@
+{
+  "source": "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Views/AddEditSongView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 134
+        }
+      },
+      {
+        "comment": "",
+        "key": "20",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 143
+        }
+      },
+      {
+        "comment": "",
+        "key": "300",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%lld",
+        "location": {
+          "startingColumn": 62,
+          "startingLine": 172
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 76,
+          "startingLine": 172
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 227
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 249
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld/%lld",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 277
+        }
+      },
+      {
+        "comment": "",
+        "key": "∞",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 506
+        }
+      },
+      {
+        "comment": "",
+        "key": ":",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 366
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 347
+        }
+      },
+      {
+        "comment": "",
+        "key": "≈ %@ @ %lld BPM",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 497
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 454
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 58,
+          "startingLine": 483
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ \"%@\"?",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 580
+        }
+      }
+    ]
+  },
+  "version": 1
+}

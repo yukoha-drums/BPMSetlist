@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BPMSetlist.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>04B0E3CB76869789E334F5F3D1F0BC657B268222</string>
+				<key>dateExpires</key>
+				<string>2027/02/05</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>329M2M34JJ.com.yukohadrum.BPMSetlist</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>329M2M34JJ</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>BPMSetlist.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>16e5b595-1fa8-4f62-bedc-c13c9f18c7a7</string>
+				<key>dateExpires</key>
+				<string>2027/02/05</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.yukohadrum.BPMSetlist</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>329M2M34JJ</string>
+				<key>name</key>
+				<string>Yuichiro Kohata</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

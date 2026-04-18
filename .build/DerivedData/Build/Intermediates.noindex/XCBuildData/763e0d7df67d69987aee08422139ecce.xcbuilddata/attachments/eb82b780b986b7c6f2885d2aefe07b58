@@ -1,0 +1,119 @@
+{
+  "" : {
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlist-primary.dia",
+    "emit-module-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlist-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlist-primary-emit-module.dia",
+    "pch" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlist-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlist-primary.swiftdeps"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/BPMSetlistApp.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/BPMSetlistApp~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/ContentView.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Localization/LocalizationManager.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/LocalizationManager~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Models/AppSettings.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AppSettings~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Models/Song.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Song~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Services/MetronomeEngine.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/MetronomeEngine~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Theme/Theme.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/Theme~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Views/AddEditSongView.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/AddEditSongView~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Views/SettingsView.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/BPMSetlist/Views/SongRowView.swift" : {
+    "const-values" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.swiftconstvalues",
+    "dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.d",
+    "diagnostics" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.dia",
+    "index-unit-output-path" : "/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.o",
+    "llvm-bc" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.bc",
+    "object" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.o",
+    "swift-dependencies" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView.swiftdeps",
+    "swiftmodule" : "/Users/yuichiro.kohata/00.work/codes/BPMSetlist/.build/DerivedData/Build/Intermediates.noindex/BPMSetlist.build/Debug-iphonesimulator/BPMSetlist.build/Objects-normal/arm64/SongRowView~partial.swiftmodule"
+  }
+}
