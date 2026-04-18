@@ -14,16 +14,16 @@
 		2C5BA7D02F20618200B3216B /* BPMSetlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7CF2F20618200B3216B /* BPMSetlistTests.swift */; };
 		2C5BA7DA2F20618300B3216B /* BPMSetlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7D92F20618300B3216B /* BPMSetlistUITests.swift */; };
 		2C5BA7DC2F20618300B3216B /* BPMSetlistUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7DB2F20618300B3216B /* BPMSetlistUITestsLaunchTests.swift */; };
-		AA000001AAAA000100000001 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA000100000002 /* ScreenshotGenerator.swift */; };
 		2C5BA7EB2F2064EC00B3216B /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7E82F2064EC00B3216B /* AppSettings.swift */; };
 		2C5BA7EC2F2064EC00B3216B /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7E92F2064EC00B3216B /* Song.swift */; };
 		2C5BA7F22F2064FF00B3216B /* AddEditSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7ED2F2064FF00B3216B /* AddEditSongView.swift */; };
 		2C5BA7F42F2064FF00B3216B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7EF2F2064FF00B3216B /* SettingsView.swift */; };
 		2C5BA7F52F2064FF00B3216B /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7F02F2064FF00B3216B /* SongRowView.swift */; };
-		2CB1E0012F2064FF00B3216B /* BeatIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1E0002F2064FF00B3216B /* BeatIndicatorView.swift */; };
 		2C5BA7F82F20650500B3216B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7F62F20650500B3216B /* Theme.swift */; };
 		2C5BA7FB2F20650C00B3216B /* MetronomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7F92F20650C00B3216B /* MetronomeEngine.swift */; };
 		2C5BA8002F20700000B3216B /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5BA7FF2F20700000B3216B /* LocalizationManager.swift */; };
+		2CB1E0012F2064FF00B3216B /* BeatIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1E0002F2064FF00B3216B /* BeatIndicatorView.swift */; };
+		AA000001AAAA000100000001 /* ScreenshotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001AAAA000100000002 /* ScreenshotGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,16 +55,16 @@
 		2C5BA7D52F20618200B3216B /* BPMSetlistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BPMSetlistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5BA7D92F20618300B3216B /* BPMSetlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPMSetlistUITests.swift; sourceTree = "<group>"; };
 		2C5BA7DB2F20618300B3216B /* BPMSetlistUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPMSetlistUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		AA000001AAAA000100000002 /* ScreenshotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotGenerator.swift; sourceTree = "<group>"; };
 		2C5BA7E82F2064EC00B3216B /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		2C5BA7E92F2064EC00B3216B /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		2C5BA7ED2F2064FF00B3216B /* AddEditSongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditSongView.swift; sourceTree = "<group>"; };
 		2C5BA7EF2F2064FF00B3216B /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2C5BA7F02F2064FF00B3216B /* SongRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
-		2CB1E0002F2064FF00B3216B /* BeatIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatIndicatorView.swift; sourceTree = "<group>"; };
 		2C5BA7F62F20650500B3216B /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		2C5BA7F92F20650C00B3216B /* MetronomeEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeEngine.swift; sourceTree = "<group>"; };
 		2C5BA7FF2F20700000B3216B /* LocalizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		2CB1E0002F2064FF00B3216B /* BeatIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatIndicatorView.swift; sourceTree = "<group>"; };
+		AA000001AAAA000100000002 /* ScreenshotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,14 +129,6 @@
 			path = BPMSetlist;
 			sourceTree = "<group>";
 		};
-		2C5BA7FE2F20700000B3216B /* Localization */ = {
-			isa = PBXGroup;
-			children = (
-				2C5BA7FF2F20700000B3216B /* LocalizationManager.swift */,
-			);
-			path = Localization;
-			sourceTree = "<group>";
-		};
 		2C5BA7C42F20618200B3216B /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +189,14 @@
 				2C5BA7F92F20650C00B3216B /* MetronomeEngine.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2C5BA7FE2F20700000B3216B /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				2C5BA7FF2F20700000B3216B /* LocalizationManager.swift */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -498,7 +498,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BPMSetlist/BPMSetlist.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BPMSetlist/Preview Content\"";
 				DEVELOPMENT_TEAM = 329M2M34JJ;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -519,7 +519,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yukohadrum.BPMSetlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -537,7 +537,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BPMSetlist/BPMSetlist.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BPMSetlist/Preview Content\"";
 				DEVELOPMENT_TEAM = 329M2M34JJ;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -558,7 +558,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yukohadrum.BPMSetlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
